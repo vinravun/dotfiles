@@ -1,0 +1,213 @@
+[colors]
+
+	background = #bb282828
+	foreground = #5DCCEC
+
+	secondary-background = #282828
+	secondary-foreground = #88c0d0
+	slight-pink = #88c0d0
+
+
+[bar/top]
+
+	monitor = LVDS-1
+
+	modules-left = wlan cpu memory temperature 
+	modules-center = i3 
+	modules-right =  time volume 
+
+	width = 100%
+	height = 24
+
+	bottom = false
+
+	line-size = 2
+	line-color = ${colors.slight-pink}
+
+	padding-right = 2
+	padding-left = 2
+	module-margin = 2
+
+	background = ${colors.background}
+	foreground = ${colors.foreground}
+
+	font-0 = FontAwesome:pixelsize=11;
+	font-1 = Roboto:pixelsize=9;
+
+	scroll-up = i3wm-wsnext
+	scroll-down = i3wm-wsprev
+
+	;tray-position = right
+	tray-padding = 2
+	;tray-transparent = true
+	tray-background = ${colors.background}
+
+
+[module/i3]
+
+	type = internal/i3
+	format = <label-state> <label-mode>
+
+	index-sort = true
+	pin-workspaces = true
+	strip-wsnumbers = true
+	wrapping-scroll = false
+	enable-click = false
+
+	label-focused = %name%
+	label-focused-foreground = ${colors.secondary-foreground}
+	label-focused-padding = 2
+
+	label-focused-underline = ${colors.slight-pink}
+
+	label-unfocused = %name%
+	label-unfocused-padding = 2
+
+	label-visible = %name%
+	label-visible-padding = 1
+
+
+[module/title]
+
+	type = internal/xwindow
+	format-padding = 4
+	label = %title%
+	label-maxlen = 20
+
+
+[module/filesystem]
+
+	type = internal/fs
+	mount-0 = /home
+	label-mounted =  %free%
+
+	interval = 5
+
+	label-mounted-padding = 1
+	label-mounted-foreground = ${colors.secondary-foreground}
+	label-mounted-underline = #AA
+
+
+[module/time]
+
+	type = internal/date
+	interval = 30.0
+	time = "%d %b - %H:%M"
+
+	label = %time%
+
+	label-padding = 1
+	label-foreground = ${colors.secondary-foreground}
+	label-underline = #AA
+
+
+[module/wlan]
+
+	type = internal/network
+	interface = wlp3s0
+	format-connected = <label-connected>
+	format-connected-padding = 1
+	format-disconnected = <label-disconnected>
+	format-disconnected-padding = 2
+	label-connected =  %essid%
+	label-disconnected =  None
+	label-connected-underline = #AA
+
+
+[module/backlight]
+
+	type = internal/backlight
+	card = intel_backlight
+	enable-scroll = true
+	output = LVDS-1
+
+	format = <label>
+
+	label = %percentage%%
+
+	ramp-0 = 🌕
+	ramp-1 = 🌔
+	ramp-2 = 🌓
+	ramp-3 = 🌒
+	ramp-4 = 🌑
+
+
+[module/battery]
+	;
+	type = internal/battery
+	battery = BAT0
+	adapter = AC
+	full-at = 99
+	time-format = %H:%M
+
+	format-charging = <animation-charging> <label-charging>
+	label-charging = %percentage%% 
+
+	format-discharging = <ramp-capacity> <label-discharging>
+	label-discharging = %percentage%%
+
+	format-full = <label-full>
+	format-full-prefix =  
+	format-full-prefix-foreground = #55aa55
+
+	ramp-capacity-0 =  
+	ramp-capacity-1 =  
+	ramp-capacity-2 =   
+	ramp-capacity-0-foreground = #5DCCEC
+	ramp-capacity-1-foreground = #5DCCEC
+	ramp-capacity-2-foreground = #5DCCEC
+
+	animation-charging-0 =  
+	animation-charging-1 =   
+	animation-charging-2 =  
+	animation-charging-foreground = #5DCCEC
+	animation-charging-framerate = 750
+
+	format-full-padding = 1
+	format-charging-padding = 1
+	format-discharging-padding = 1
+
+	
+[module/volume]
+
+	type = internal/volume
+	;format-volume = <ramp-volume> <label-volume>
+	format-volume = <ramp-volume>
+	master-mixer = Master
+	label-muted =  muted
+
+	ramp-volume-0 = 
+	ramp-volume-1 = 
+	ramp-volume-2 = 
+	format-volume-underline = ${colors.foreground}
+	format-volume-padding = 1
+	mapping = true
+
+
+[module/cpu]
+
+	type = internal/cpu
+	interval = 2
+	format-cpu-underline = ${colors.foreground}
+	label =   %percentage%%
+	label-underline = #AA
+
+
+[module/temperature]
+
+	type = internal/temperature
+	interval = 3
+	thermal-zone = 0
+	warn-temperature = 80
+	format-prefix = " "
+
+
+[module/memory]
+
+	type = internal/memory
+	interval = 2
+	format-prefix = " "
+	format-memory-underline = ${colors.secondary-foreground}
+	label = %percentage_used%%
+	label-foreground = ${colors.foreground}
+	format-padding = 1
