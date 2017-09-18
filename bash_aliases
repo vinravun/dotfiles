@@ -1,4 +1,4 @@
-
+#aliases
 
 alias cp='cp -i'
 alias mv='mv -i'
@@ -12,11 +12,11 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-alias mount='mount |column -t'
+alias mount='mount | column -t'
 
 # pacman helpers
 alias pac='sudo pacman -S'   # install
-alias pacup='sudo pacman -Syu && pacaur -Syu'    # update
+alias pacup='sudo pacman -Syu && pacaur -Su'    # update
 alias pacr='sudo pacman -Rs'   # remove
 alias pacs='sudo pacman -Ss'      # search
 alias paci='sudo pacman -Si'      # info
@@ -31,5 +31,8 @@ alias ymusic='youtube-dl --extract-audio --audio-format mp3 -i -o "%(title)s.%(e
 
 alias wget='wget -c'
 
-alias cpphoto='bash $HOME/code/bash/cpphoto.sh' #copy files from the camera card
+alias cpcamfiles='bash $HOME/code/bash/cpphoto.sh' #copy files from the camera card
+
 alias elog='bash $HOME/code/bash/elog.sh' # entering log
+
+alias killallwine="wineserver -k; killall -9 wine wineserver; for i in `ps ax|egrep \"*\.exe\"|grep -v 'egrep'|awk '{print $1 }'`;do kill -9 $i;done"

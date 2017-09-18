@@ -1,6 +1,6 @@
 [colors]
 
-	background = #bb282828
+	background = #dd282828
 	foreground = #5DCCEC
 
 	secondary-background = #282828
@@ -12,35 +12,42 @@
 
 	monitor = LVDS-1
 
-	modules-left = wlan cpu memory temperature 
+	modules-left = cpu memory temperature wlan
 	modules-center = i3 
-	modules-right =  time volume 
+	modules-right =  mpd time volume
 
 	width = 100%
-	height = 24
+	height = 28
 
 	bottom = false
 
-	line-size = 2
+	line-size = 1
 	line-color = ${colors.slight-pink}
 
 	padding-right = 2
 	padding-left = 2
-	module-margin = 2
+	module-margin = 1
+
+	border-size = 5
+	border-top-size = 5
+	border-bottom-size = 0
+	border-color = #00000000
 
 	background = ${colors.background}
 	foreground = ${colors.foreground}
 
-	font-0 = FontAwesome:pixelsize=11;
-	font-1 = Roboto:pixelsize=9;
+	font-0 = FontAwesome:pixelsize=11;2
+	font-1 = Roboto:pixelsize=9;2
 
 	scroll-up = i3wm-wsnext
 	scroll-down = i3wm-wsprev
 
-	;tray-position = right
-	tray-padding = 2
+	tray-position = right
+	tray-padding = 1
 	;tray-transparent = true
 	tray-background = ${colors.background}
+
+	;override-redirect = true
 
 
 [module/i3]
@@ -49,7 +56,7 @@
 	format = <label-state> <label-mode>
 
 	index-sort = true
-	pin-workspaces = true
+	pin-workspaces = false
 	strip-wsnumbers = true
 	wrapping-scroll = false
 	enable-click = false
@@ -64,7 +71,7 @@
 	label-unfocused-padding = 2
 
 	label-visible = %name%
-	label-visible-padding = 1
+	label-visible-padding = 2
 
 
 [module/title]
@@ -93,9 +100,7 @@
 	type = internal/date
 	interval = 30.0
 	time = "%d %b - %H:%M"
-
 	label = %time%
-
 	label-padding = 1
 	label-foreground = ${colors.secondary-foreground}
 	label-underline = #AA
@@ -108,10 +113,9 @@
 	format-connected = <label-connected>
 	format-connected-padding = 1
 	format-disconnected = <label-disconnected>
-	format-disconnected-padding = 2
-	label-connected =  %essid%
-	label-disconnected =  None
-	label-connected-underline = #AA
+	format-disconnected-padding = 1
+	label-connected =  %essid%   %downspeed%   %upspeed%
+	label-disconnected =  -
 
 
 [module/backlight]
@@ -133,6 +137,7 @@
 
 
 [module/battery]
+
 	;
 	type = internal/battery
 	battery = BAT0
@@ -171,14 +176,17 @@
 [module/volume]
 
 	type = internal/volume
-	;format-volume = <ramp-volume> <label-volume>
-	format-volume = <ramp-volume>
+	format-volume = <ramp-volume> <label-volume>
 	master-mixer = Master
+	label-volume = %percentage%%
 	label-muted =  muted
 
 	ramp-volume-0 = 
 	ramp-volume-1 = 
 	ramp-volume-2 = 
+	ramp-headphones-0 = 
+	ramp-headphones-1 = 
+	ramp-headphones-2 = 
 	format-volume-underline = ${colors.foreground}
 	format-volume-padding = 1
 	mapping = true
@@ -190,7 +198,6 @@
 	interval = 2
 	format-cpu-underline = ${colors.foreground}
 	label =   %percentage%%
-	label-underline = #AA
 
 
 [module/temperature]
@@ -211,3 +218,20 @@
 	label = %percentage_used%%
 	label-foreground = ${colors.foreground}
 	format-padding = 1
+
+
+[module/mpd]
+
+	type = internal/mpd
+	format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
+
+	icon-prev = 
+	icon-stop = 
+	icon-play = 
+	icon-pause = 
+	icon-next = 
+
+	label-song = %artist% - %title% 
+	label-time = (%elapsed%/%total%)
+	label-song-maxlen = 100
+	label-song-ellipsis = true
